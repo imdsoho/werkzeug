@@ -841,7 +841,13 @@ def make_server(
     """Create a new server instance that is either threaded, or forks
     or just processes one request after another.
     """
+    # Flask custom application call
+    #app.run(host="0.0.0.0", port="8080", threaded=True)
+    # app.run(host="0.0.0.0", port="8080", processes=2) # ERROR > ValueError
+    #app.run(host="0.0.0.0", port="8080", threaded=False, processes=2)
+
     if threaded and processes > 1:
+        # Macbook Pro - Number of Processors: 1
         raise ValueError("cannot have a multithreaded and multi process server.")
     elif threaded:
         return ThreadedWSGIServer(
